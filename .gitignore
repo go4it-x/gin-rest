@@ -1,0 +1,11 @@
+.idea/
+.DS_Store
+*.iml
+*.exe
+*.bak*
+.history/
+.vscode/
+vendor/
+pkg/kugou/
+data/
+test/

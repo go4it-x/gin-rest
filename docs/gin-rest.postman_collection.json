@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "4cce0624-320e-44bb-af4f-7a0180901a39",
+		"name": "gin-rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getMember",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"刘德华\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/test/member",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"test",
+						"member"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sayHello",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"刘德华\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/test/say?username=test",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"test",
+						"say"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "99256ab6-5632-4e0b-9f75-ce194663f670",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "30aaff09-7004-41ba-b34d-f67b5ec277bc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

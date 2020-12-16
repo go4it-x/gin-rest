@@ -1,0 +1,12 @@
+[jupiter.server.http]
+    port = 20105
+
+[jupiter.mysql.test]
+    connMaxLifetime = "300s"
+    debug = true
+    dsn = "root:123456@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local"
+    level = "panic"
+    maxIdleConns = 50
+    maxOpenConns = 100
+    disableTrace = true
+    disableMetric = true
