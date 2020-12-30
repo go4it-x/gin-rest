@@ -26,8 +26,11 @@ const UserStatusDisable uint32 = 400003
 // ServerError 服务端错误
 const ServerError uint32 = 500001
 
+// ServerError 数据库错误
+const DatabaseError uint32 = 500002
+
 // UserInfoFailed 用户信息错误
-const UserInfoFailed uint32 = 500002
+const UserInfoFailed uint32 = 500003
 
 // UserRegisterFailed 用户注册失败
-const UserRegisterFailed uint32 = 500003
+const UserRegisterFailed uint32 = 500004

@@ -1,7 +1,7 @@
 package code
 
-// message code Corresponding message
-var message = map[uint32]string{
+// meaning code Corresponding message
+var meaning = map[uint32]string{
 	Ok:           "SUCCESS",
 	Fail:         "FAILED",
 	Unauthorized: "未授权",
@@ -14,13 +14,14 @@ var message = map[uint32]string{
 
 	// server
 	ServerError:        "服务端错误",
+	DatabaseError:      "数据库错误",
 	UserInfoFailed:     "获取用户失败",
 	UserRegisterFailed: "用户注册失败",
 }
 
 // Value get msg by code
 func Value(code uint32) string {
-	if msg, ok := message[code]; ok {
+	if msg, ok := meaning[code]; ok {
 		return msg
 	} else {
 		return ""
