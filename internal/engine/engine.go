@@ -3,6 +3,7 @@ package engine
 import (
 	"github.com/douyu/jupiter"
 	"github.com/douyu/jupiter/pkg/server/xgin"
+	"github.com/douyu/jupiter/pkg/store/gorm"
 	"github.com/douyu/jupiter/pkg/util/xgo"
 	"github.com/douyu/jupiter/pkg/xlog"
 	"home/internal/http"
@@ -16,7 +17,7 @@ type Engine struct {
 func NewEngine() *Engine {
 	eng := &Engine{}
 	if err := eng.Startup(
-		service.Init,
+		eng.serveDB,
 		xgo.ParallelWithError(
 			eng.serveHTTP,
 		),
@@ -25,6 +26,12 @@ func NewEngine() *Engine {
 	}
 
 	return eng
+}
+
+func (eng *Engine) serveDB() error {
+	db := gorm.StdConfig("test").Build()
+	service.Init(db)
+	return nil
 }
 
 func (eng *Engine) serveHTTP() error {

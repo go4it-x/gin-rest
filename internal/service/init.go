@@ -12,13 +12,11 @@ var (
 )
 
 //Init instantiate the service
-func Init() error {
+func Init(database *gorm.DB) {
 	// init orm
-	//db = gorm.StdConfig("test").Build()
+	//db = database
 	//db.SingularTable(true)
 	//migrate()
-
-	return nil
 }
 
 // Migrate data migration
