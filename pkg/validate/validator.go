@@ -5,7 +5,7 @@ import (
 	"github.com/go-playground/locales/zh"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
-	translationsZh "github.com/go-playground/validator/v10/translations/zh"
+	translations "github.com/go-playground/validator/v10/translations/zh"
 )
 
 var (
@@ -17,7 +17,7 @@ func init() {
 	v = validator.New()
 	uni := ut.New(zh.New())
 	trans, _ = uni.GetTranslator("zh")
-	err := translationsZh.RegisterDefaultTranslations(v, trans)
+	err := translations.RegisterDefaultTranslations(v, trans)
 	if err != nil {
 		xlog.Error(err.Error())
 	}
