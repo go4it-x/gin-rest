@@ -1,42 +1,34 @@
 package validate
 
 import (
-	"fmt"
+	"github.com/douyu/jupiter/pkg/xlog"
+	"github.com/go-playground/locales/zh"
+	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
-	"strings"
+	translationsZh "github.com/go-playground/validator/v10/translations/zh"
 )
 
 var (
-	v *validator.Validate
+	v     *validator.Validate
+	trans ut.Translator
 )
 
 func init() {
 	v = validator.New()
+	uni := ut.New(zh.New())
+	trans, _ = uni.GetTranslator("zh")
+	err := translationsZh.RegisterDefaultTranslations(v, trans)
+	if err != nil {
+		xlog.Error(err.Error())
+	}
 }
 
 // Do validate params
 // params:Parameters to be verified
-// excludes:Parameter field name without validation
-func Do(params interface{}, excludes ...string) (msg string) {
+func Do(params interface{}) (msg string) {
 	if err := v.Struct(params); err != nil {
 		for _, e := range err.(validator.ValidationErrors) {
-			fieldName := strings.ToLower(e.Field())
-			for _, exclude := range excludes {
-				if fieldName == strings.ToLower(exclude) {
-					continue
-				}
-			}
-
-			switch e.Tag() {
-			case "required":
-				msg = fmt.Sprintf("%v is required", e.Field())
-			case "email":
-				msg = fmt.Sprintf("%v must be a mail", e.Field())
-			default:
-				msg = err.Error()
-			}
-
-			return msg
+			return e.Translate(trans)
 		}
 	}
 
