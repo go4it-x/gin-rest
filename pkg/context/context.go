@@ -41,11 +41,11 @@ func (c *Context) BindParam(params interface{}) {
 	}
 
 	if err != nil && err.Error() != "EOF" {
-		c.Fail(e.Error{Code: code.Fail, Msg: "Parameter error：" + err.Error()})
+		panic(e.Error{Code: code.Fail, Msg: err.Error()})
 	}
 
 	if msg := validate.Do(params); msg != "" {
-		c.Fail(e.Error{Code: code.Fail, Msg: msg})
+		panic(e.Error{Code: code.Fail, Msg: msg})
 	}
 }
 
@@ -104,18 +104,20 @@ func ErrorHandler(c *gin.Context) {
 		// Handling custom errors: panic
 		if err, ok := err.(e.Error); ok {
 			ret = Ret{
-				Code: err.Code,
-				Msg:  err.Error(),
-				Data: "",
+				Code:       err.Code,
+				Msg:        err.Error(),
+				ServerTime: xtime.GetTimestampInMilli(),
+				Data:       "",
 			}
 		} else {
 			// xlog.Error(string(debug.Stack()))
 			msg := fmt.Sprintf("Server unknown error：%v", err)
 			xlog.Error(msg)
 			ret = Ret{
-				Code: code.ServerError,
-				Msg:  msg,
-				Data: "",
+				Code:       code.ServerError,
+				Msg:        msg,
+				ServerTime: xtime.GetTimestampInMilli(),
+				Data:       "",
 			}
 		}
 
