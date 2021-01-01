@@ -25,8 +25,8 @@ func (t *Test) SayHello(c *context.Context) {
 	var p param.SayTest
 	c.BindParam(&p)
 	str, err := service.Test.SayHello(p)
-	c.Result(str, err)
-	//c.Result(service.Test.SayHello(p))
+	c.Response(str, err)
+	//c.Response(service.Test.SayHello(p))
 }
 
 // UserInfo get user info
