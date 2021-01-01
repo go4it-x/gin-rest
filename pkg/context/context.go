@@ -49,6 +49,24 @@ func (c *Context) BindParam(params interface{}) {
 	}
 }
 
+// Result handle Result
+func (c *Context) Result(data ...interface{}) {
+	length := len(data)
+	if err, ok := data[length-1].(e.Error); ok {
+		if err.Code != code.Ok {
+			c.Fail(err)
+			return
+		}
+
+		if length == 1 {
+			c.Success()
+			return
+		}
+	}
+
+	c.Success(data[0 : length-1])
+}
+
 // Fail return fail
 func (c *Context) Fail(err e.Error) {
 	ret := Ret{
@@ -99,10 +117,9 @@ func (c *Context) Success(data ...interface{}) {
 
 // ErrorHandler error handling
 func ErrorHandler(c *gin.Context) {
-	if err := recover(); err != nil {
+	if r := recover(); r != nil {
 		var ret Ret
-		// Handling custom errors: panic
-		if err, ok := err.(e.Error); ok {
+		if err, ok := r.(e.Error); ok {
 			ret = Ret{
 				Code:       err.Code,
 				Msg:        err.Error(),

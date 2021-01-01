@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"home/internal/param"
 	"home/internal/service"
-	"home/pkg/code"
 	"home/pkg/context"
 )
 
@@ -26,12 +25,8 @@ func (t *Test) SayHello(c *context.Context) {
 	var p param.SayTest
 	c.BindParam(&p)
 	str, err := service.Test.SayHello(p)
-	if err.Code != code.Ok {
-		c.Fail(err)
-		return
-	}
-
-	c.Success(str)
+	c.Result(str, err)
+	//c.Result(service.Test.SayHello(p))
 }
 
 // UserInfo get user info
